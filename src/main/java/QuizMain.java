@@ -9,7 +9,7 @@ public class QuizMain {
     public static void main(String[] args) throws FileNotFoundException, InterruptedException {
 
 
-        File folder = new File("C:/Test/quiz/");
+        File folder = new File("src\\main\\resources");
         File[] listaKategorii = folder.listFiles();
         int punkty = 0;
         for (int j = 0; j < 10; j++) {
@@ -40,7 +40,7 @@ public class QuizMain {
             }
 
             Collections.shuffle(zadania);
-            System.out.println("Zadanie nr." + (j+1) + "\n" + zadania.get(0).pytanie);
+            System.out.println("Zadanie nr." + (j + 1) + "\n" + zadania.get(0).pytanie);
             String prawidlowaOdpowiedz = zadania.get(0).odpowiedzi.get(0);
             Collections.shuffle(zadania.get(0).odpowiedzi);
             for (int i = 0; i < zadania.get(0).odpowiedzi.size(); i++) {
@@ -49,12 +49,12 @@ public class QuizMain {
             Scanner skanerWybranejOdpowiedzi = new Scanner(System.in);
             int wybranaOdpowiedz = (skanerWybranejOdpowiedzi.nextInt());
 
-            if (prawidlowaOdpowiedz == zadania.get(0).odpowiedzi.get(wybranaOdpowiedz-1)) {
+            if (prawidlowaOdpowiedz == zadania.get(0).odpowiedzi.get(wybranaOdpowiedz - 1)) {
                 System.out.println("Dobra odpowiedź!");
                 punkty++;
             } else {
                 System.out.println("Błędna odpowiedź");
-                System.out.println("Prawidłowa odpowiedź to: \n"+prawidlowaOdpowiedz);
+                System.out.println("Prawidłowa odpowiedź to: \n" + prawidlowaOdpowiedz);
             }
             Thread.sleep(2000);
 
