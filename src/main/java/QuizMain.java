@@ -1,8 +1,10 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class QuizMain {
@@ -22,7 +24,13 @@ public class QuizMain {
                         .replaceAll("_", " ")
                         .replaceAll(".txt", ""));
             }
+            System.out.println("17. Wszystkie kategorie.");
             wybranaKategoria = skanerWybranejKategorii.nextInt();
+
+            if (wybranaKategoria == 17){
+                Random random = new Random();
+                wybranaKategoria=random.nextInt(16);
+            }
 
             Scanner scanner = new Scanner(listaKategorii[wybranaKategoria - 1]);
 
@@ -40,7 +48,7 @@ public class QuizMain {
             }
 
             Collections.shuffle(zadania);
-            System.out.println("Zadanie nr." + (j + 1) + "\n" + zadania.get(0).pytanie);
+            System.out.println("Pytanie nr." + (j + 1) + "\n" + zadania.get(0).pytanie);
             String prawidlowaOdpowiedz = zadania.get(0).odpowiedzi.get(0);
             Collections.shuffle(zadania.get(0).odpowiedzi);
             for (int i = 0; i < zadania.get(0).odpowiedzi.size(); i++) {
