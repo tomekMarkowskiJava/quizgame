@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,7 +14,7 @@ public class QuizMain {
         File[] listaKategorii = folder.listFiles();
         int punkty = 0;
         for (int j = 0; j < 10; j++) {
-            int wybranaKategoria = 0;
+            int wybranaKategoria;
             Scanner skanerWybranejKategorii = new Scanner(System.in);
 
             System.out.println("\nWybierz kategorię: ");
@@ -24,18 +23,20 @@ public class QuizMain {
                         .replaceAll("_", " ")
                         .replaceAll(".txt", ""));
             }
-            System.out.println("17. Wszystkie kategorie.");
+            System.out.println((listaKategorii.length+1)+ ". Wszystkie kategorie.\n" + (listaKategorii.length+2) + ". Wyjdź");
             wybranaKategoria = skanerWybranejKategorii.nextInt();
 
-            if (wybranaKategoria == 17){
+            if (wybranaKategoria == listaKategorii.length+1){
                 Random random = new Random();
-                wybranaKategoria=random.nextInt(16);
+                wybranaKategoria=random.nextInt(listaKategorii.length);
+            }else if (wybranaKategoria == listaKategorii.length+2){
+                break;
             }
 
             Scanner scanner = new Scanner(listaKategorii[wybranaKategoria - 1]);
 
             List<ZadanieQuizowe> zadania = new LinkedList<ZadanieQuizowe>();
-            int liczbaOdpowiedzi = 0;
+            int liczbaOdpowiedzi;
 
             while (scanner.hasNextLine()) {
                 ZadanieQuizowe zadanie = new ZadanieQuizowe();
@@ -48,16 +49,17 @@ public class QuizMain {
             }
 
             Collections.shuffle(zadania);
-            System.out.println("Pytanie nr." + (j + 1) + "\n" + zadania.get(0).pytanie);
-            String prawidlowaOdpowiedz = zadania.get(0).odpowiedzi.get(0);
-            Collections.shuffle(zadania.get(0).odpowiedzi);
-            for (int i = 0; i < zadania.get(0).odpowiedzi.size(); i++) {
-                System.out.println((i + 1) + ". " + zadania.get(0).odpowiedzi.get(i));
+            ZadanieQuizowe biezaceZadanie = zadania.get(0);
+            System.out.println("Pytanie nr." + (j + 1) + "\n" + biezaceZadanie.pytanie);
+            String prawidlowaOdpowiedz = biezaceZadanie.odpowiedzi.get(0);
+            Collections.shuffle(biezaceZadanie.odpowiedzi);
+            for (int i = 0; i < biezaceZadanie.odpowiedzi.size(); i++) {
+                System.out.println((i + 1) + ". " + biezaceZadanie.odpowiedzi.get(i));
             }
             Scanner skanerWybranejOdpowiedzi = new Scanner(System.in);
             int wybranaOdpowiedz = (skanerWybranejOdpowiedzi.nextInt());
 
-            if (prawidlowaOdpowiedz == zadania.get(0).odpowiedzi.get(wybranaOdpowiedz - 1)) {
+            if (prawidlowaOdpowiedz.equals(biezaceZadanie.odpowiedzi.get(wybranaOdpowiedz - 1))) {
                 System.out.println("Dobra odpowiedź!");
                 punkty++;
             } else {

@@ -5,5 +5,4 @@ public class ZadanieQuizowe {
     String pytanie = null;
     List<String> odpowiedzi = new ArrayList<String>();
 
-//...
 }
